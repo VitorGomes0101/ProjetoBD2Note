@@ -9,10 +9,13 @@ public class NotificacaoLembrete {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long idNotificao;
 
+	@Column(name = "data_hora_lembrar", nullable = false, insertable = true, updatable = true, unique = false)
 	private Date dataHoraLembrar;
-
+	
+	@Column(name = "modo_notificacao", nullable = false, insertable = true, updatable = true, unique = false)
 	private ModoNotificacao modo;
 
+	@Column(name = "confirmado", nullable = false, insertable = true, updatable = true, unique = false)
 	private boolean confirmado;
 	
 	@JoinColumn(name = "login", referencedColumnName = "login")
@@ -23,6 +26,7 @@ public class NotificacaoLembrete {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private Lembrete lembrete;
 
+	
 	public Date getDataHoraLembrar() {
 		return dataHoraLembrar;
 	}
