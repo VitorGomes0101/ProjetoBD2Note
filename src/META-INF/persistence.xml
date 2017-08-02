@@ -11,7 +11,8 @@
 		<class>com.ads.bd2.agenda.modelo.LatitudeLongitude</class>
 		<class>com.ads.bd2.agenda.modelo.Usuario</class>		
 		<class>com.ads.bd2.agenda.modelo.Lembrete</class>		
-		<class>com.ads.bd2.agenda.modelo.Anexo</class>		
+		<class>com.ads.bd2.agenda.modelo.Anexo</class>	
+		<class>com.ads.bd2.agenda.modelo.NotificacaoLembrete</class>			
 		<!-- ADICIONAR APENAS CLASSES QUE JÁ FORAM MAPEADAS -->		
 				
 		<properties>

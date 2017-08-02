@@ -23,7 +23,8 @@ public class Lembrete {
 	private Collection<Anexo> anexo;
 
 	private Collection<Usuario> usuario;
-
+	
+	@OneToMany(mappedBy = "lembrete")
 	private Collection<NotificacaoLembrete> notificacaoLembrete;
 
 	public long getIdLembrete() {
