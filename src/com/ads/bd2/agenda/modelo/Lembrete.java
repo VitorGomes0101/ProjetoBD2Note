@@ -18,7 +18,8 @@ public class Lembrete {
 	private int texto;
 
 	private int posicaoEntreLembretes;
-
+	
+	@OneToMany(mappedBy = "lembrete")
 	private Collection<Anexo> anexo;
 
 	private Collection<Usuario> usuario;
