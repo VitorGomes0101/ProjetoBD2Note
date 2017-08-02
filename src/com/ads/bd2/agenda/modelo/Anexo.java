@@ -7,22 +7,25 @@ import javax.persistence.*;
 public class Anexo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long idanexo;
 	
-	private int descricao;
+	@Column(name = "descricao", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
+	private String descricao;
 
+	@Column(name = "posicao_lembrete", nullable = false, insertable = true, updatable = true, unique = false)
 	private int posicaoNoLembrete;
 	
 	@JoinColumn(name = "idlembrete", referencedColumnName = "idlembrete")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Lembrete lembrete;
 
-	public int getDescricao() {
+	
+	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(int descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
