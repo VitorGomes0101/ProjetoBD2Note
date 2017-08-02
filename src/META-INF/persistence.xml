@@ -18,7 +18,7 @@
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bd2note" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="1234" />
+			<property name="javax.persistence.jdbc.password" value="postgres" />
 			
 			<!-- PROPRIEDADES ESPECÍFICAS PARA O PROVEDOR JPA ECLIPSELINK -->
 			<property name="eclipselink.logging.timestamp" value="true" />
