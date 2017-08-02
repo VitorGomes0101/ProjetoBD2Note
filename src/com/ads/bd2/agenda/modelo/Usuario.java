@@ -10,30 +10,31 @@ import javax.persistence.*;
 public class Usuario {
 	
 	@Column(name = "nome", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
-	private int nome;
+	private String nome;
 
 	@Column(name = "datanascimento", nullable = false, insertable = true, updatable = true, unique = false)
 	private Date dataNascimento;
 
 	@Id
 	@Column(name = "login", nullable = false, length = 255, insertable = true, updatable = true, unique = true)
-	private int login;
+	private String login;
 
 	@Column(name = "senha", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
-	private int senha;
+	private String senha;
 
 	@Column(name = "email", nullable = false, length = 255, insertable = true, updatable = true, unique = true)
-	private int email;
+	private String email;
 
 	@JoinTable(name = "lembrete_usuario", joinColumns = {@JoinColumn(name = "login_usuario", referencedColumnName = "login")}, inverseJoinColumns = {@JoinColumn(name = "id_lembrete", referencedColumnName = "idlembrete")})
 	@ManyToMany
 	private Collection<Lembrete> lembrete;
 
-	public int getNome() {
+	
+	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(int nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -45,27 +46,27 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public int getLogin() {
+	public String getLogin() {
 		return login;
 	}
 
-	public void setLogin(int login) {
+	public void setLogin(String login) {
 		this.login = login;
 	}
 
-	public int getSenha() {
+	public String getSenha() {
 		return senha;
 	}
 
-	public void setSenha(int senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	public int getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(int email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

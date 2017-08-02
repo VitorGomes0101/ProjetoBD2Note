@@ -10,23 +10,29 @@ public class Lembrete {
 
 	@Id
 	private long idlembrete;
-
+	
+	@Column(name = "data_cricao", nullable = false, insertable = true, updatable = true, unique = false)
 	private Date dataCriacao;
+	
+	@Column(name = "titulo", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
+	private String titulo;
 
-	private int titulo;
-
-	private int texto;
-
+	@Column(name = "texto", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
+	private String texto;
+	
+	@Column(name = "posicao_lembrete", nullable = false, insertable = true, updatable = true, unique = false)
 	private int posicaoEntreLembretes;
 	
 	@OneToMany(mappedBy = "lembrete")
 	private Collection<Anexo> anexo;
-
+	
+	@ManyToMany (mappedBy = "lembrete")
 	private Collection<Usuario> usuario;
 	
 	@OneToMany(mappedBy = "lembrete")
 	private Collection<NotificacaoLembrete> notificacaoLembrete;
 
+	
 	public long getIdLembrete() {
 		return idlembrete;
 	}
@@ -43,19 +49,19 @@ public class Lembrete {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public int getTitulo() {
+	public String getTitulo() {
 		return titulo;
 	}
 
-	public void setTitulo(int titulo) {
+	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
-	public int getTexto() {
+	public String getTexto() {
 		return texto;
 	}
 
-	public void setTexto(int texto) {
+	public void setTexto(String texto) {
 		this.texto = texto;
 	}
 
