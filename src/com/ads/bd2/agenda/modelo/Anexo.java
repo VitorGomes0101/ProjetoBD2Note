@@ -4,8 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "anexo", schema="public")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "TIPO_ANEXO")
 public class Anexo {
-	
+	//@TableGenerator(name = "VEHICLE_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long idanexo;

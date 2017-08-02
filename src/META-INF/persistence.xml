@@ -12,7 +12,10 @@
 		<class>com.ads.bd2.agenda.modelo.Usuario</class>		
 		<class>com.ads.bd2.agenda.modelo.Lembrete</class>		
 		<class>com.ads.bd2.agenda.modelo.Anexo</class>	
-		<class>com.ads.bd2.agenda.modelo.NotificacaoLembrete</class>			
+		<class>com.ads.bd2.agenda.modelo.NotificacaoLembrete</class>
+		<class>com.ads.bd2.agenda.modelo.Local</class>	
+		<class>com.ads.bd2.agenda.modelo.URL</class>	
+		<class>com.ads.bd2.agenda.modelo.Imagem</class>				
 		<!-- ADICIONAR APENAS CLASSES QUE JÁ FORAM MAPEADAS -->		
 				
 		<properties>

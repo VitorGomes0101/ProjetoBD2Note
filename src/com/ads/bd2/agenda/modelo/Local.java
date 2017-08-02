@@ -1,5 +1,8 @@
 package com.ads.bd2.agenda.modelo;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Local extends Anexo {
 
 	private String cep;
