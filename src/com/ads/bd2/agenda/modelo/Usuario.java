@@ -3,18 +3,30 @@ package com.ads.bd2.agenda.modelo;
 import java.util.Collection;
 import java.util.Date;
 
-public class Usuario {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "usuario", schema="public")
+public class Usuario {
+	
+	@Column(name = "nome", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
 	private int nome;
 
+	@Column(name = "datanascimento", nullable = false, insertable = true, updatable = true, unique = false)
 	private Date dataNascimento;
 
+	@Id
+	@Column(name = "login", nullable = false, length = 255, insertable = true, updatable = true, unique = true)
 	private int login;
 
+	@Column(name = "senha", nullable = false, length = 255, insertable = true, updatable = true, unique = false)
 	private int senha;
 
+	@Column(name = "email", nullable = false, length = 255, insertable = true, updatable = true, unique = true)
 	private int email;
 
+	@JoinTable(name = "lembrete_usuario", joinColumns = {@JoinColumn(name = "login_usuario", referencedColumnName = "login")}, inverseJoinColumns = {@JoinColumn(name = "idlembrete", referencedColumnName = "idlembrete")})
+	@ManyToMany
 	private Collection<Lembrete> lembrete;
 
 	public int getNome() {

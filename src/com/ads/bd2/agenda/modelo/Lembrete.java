@@ -3,7 +3,13 @@ package com.ads.bd2.agenda.modelo;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
 public class Lembrete {
+
+	@Id
+	private long idlembrete;
 
 	private Date dataCriacao;
 
@@ -18,6 +24,14 @@ public class Lembrete {
 	private Collection<Usuario> usuario;
 
 	private Collection<NotificacaoLembrete> notificacaoLembrete;
+
+	public long getIdLembrete() {
+		return idlembrete;
+	}
+	
+	public void setIdLembrete(long idlembrete) {
+		this.idlembrete = idlembrete;
+	}
 
 	public Date getDataCriacao() {
 		return dataCriacao;
