@@ -9,7 +9,7 @@
 		
 		<!-- LISTAGEM DE CLASSES PERSISTENTES QUE TERAO ANNOTATIONS A SEREM PROCESSADAS -->
 		<class>com.ads.bd2.agenda.modelo.LatitudeLongitude</class>
-		
+		<!-- ADICIONAR APENAS CLASSES QUE JÁ FORAM MAPEADAS -->		
 				
 		<properties>
 			<!-- PROPRIEDADES JDBC PARA O POSTGRESQL -->
