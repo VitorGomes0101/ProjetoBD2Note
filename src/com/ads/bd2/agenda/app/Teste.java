@@ -1,38 +1,37 @@
 package com.ads.bd2.agenda.app;
 
-import java.sql.Date;
-
 import javax.persistence.EntityManager;
-
-import com.ads.bd2.agenda.modelo.Usuario;
+import com.ads.bd2.agenda.modelo.LatitudeLongitude;
 import com.ads.bd2.agenda.persistencia.DAOJPA;
-import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
+import com.ads.bd2.agenda.persistencia.DAOJPALatitudeLongitude;
 
 public class Teste {
 
 	public static void main(String[] args) {
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
-		EntityManager em = DAOJPA.createAndInitEntityManager();
-		em.getTransaction().begin();
-		DAOJPAUsuario daoUsuario= new DAOJPAUsuario(em);
+		//faremos um compartilhamento do EntityManager entre os DAOs para otimizarmos as operacoes 
+		//comuns numa sessao de trabalho (operacoes numa mesma transacao).
+		//por isso abriremos e fecharemos a transacao do EntityManager (commit) fora dos DAOs
+				
+		EntityManager em = DAOJPA.createAndInitEntityManager(); //---> chamando o EntityManager		
+		em.getTransaction().begin();//---> abrindo a transacao
+		DAOJPA<LatitudeLongitude> daoLatLong = new DAOJPALatitudeLongitude(em); //---> criando um DAO para um objeto persistente especifico, com o mesmo EntityManager
 		
-		//CRIANDO USUARIOS E INSERINDO DENTRO DA TRANSAÇÃO (PERSISTENCIA)
-		for(int i=0; i<1000; i++) {
-		Usuario usuario = new Usuario();
-		usuario.setLogin("jadson"+i+1);
-		usuario.setNome("Jadson");
-		usuario.setSenha("123");
-		usuario.setEmail("jadson"+i+"@gmail.com");
-		usuario.setDataNascimento(new Date(System.currentTimeMillis()));
 		
-		daoUsuario.create(usuario);
-		}
+		//se outros objetos fossem persistidos criariamos o respectivo DAO desse objeto passando o mesmo EntityManager
 		
-		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
-		em.getTransaction().commit();
-		daoUsuario.closeEntityManager();
-		System.out.println("O tempo da operação foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
+		
+		//criando um objeto
+		LatitudeLongitude latLong = new LatitudeLongitude();
+		latLong.setLatitude(90);
+		latLong.setLongitude(100);
+		
+		//persistindo
+		daoLatLong.create(latLong);
+		
+		
+		em.getTransaction().commit();//---> fechando a transacao
+		daoLatLong.closeEntityManager();//---> fechando o EntityManager
+
 	}
 
 }
