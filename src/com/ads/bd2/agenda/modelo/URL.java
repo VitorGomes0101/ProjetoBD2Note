@@ -15,4 +15,7 @@ public class URL extends Anexo {
 		this.url = url;
 	}
 	
+	public URL() {
+		
+	}
 }

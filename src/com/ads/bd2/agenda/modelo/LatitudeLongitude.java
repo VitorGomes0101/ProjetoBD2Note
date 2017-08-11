@@ -42,5 +42,8 @@ public class LatitudeLongitude {
 		this.longitude = longitude;
 	}
 	
+	public LatitudeLongitude() {
+		
+	}
 
 }

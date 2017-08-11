@@ -55,6 +55,9 @@ public class Anexo {
 		this.lembrete = lembrete;
 	}
 	
+	public Anexo() {
+		
+	}
 	
 
 }

@@ -77,5 +77,8 @@ public class Usuario {
 	public void setLembrete(Collection<Lembrete> lembrete) {
 		this.lembrete = lembrete;
 	}
-	
+
+	public Usuario() {
+		
+	}
 }

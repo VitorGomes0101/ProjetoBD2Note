@@ -75,6 +75,10 @@ public class NotificacaoLembrete {
 		this.lembrete = lembrete;
 	}
 	
+	public NotificacaoLembrete() {
+		
+	}
+	
 	
 	
 

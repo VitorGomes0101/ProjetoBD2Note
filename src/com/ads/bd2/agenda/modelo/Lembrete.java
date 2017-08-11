@@ -97,7 +97,9 @@ public class Lembrete {
 		this.notificacaoLembrete = notificacaoLembrete;
 	}
 
-	
+	public Lembrete (){
+		
+	}
 	
 	
 }

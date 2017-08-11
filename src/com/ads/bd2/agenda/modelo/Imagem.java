@@ -14,6 +14,10 @@ public class Imagem extends Anexo {
 	public void setCaminhoSistemaArquivos(int caminhoSistemaArquivos) {
 		this.caminhoSistemaArquivos = caminhoSistemaArquivos;
 	}
+	
+	public Imagem() {
+		
+	}
 
 	
 }

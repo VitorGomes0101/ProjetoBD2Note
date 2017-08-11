@@ -55,6 +55,10 @@ public class Local extends Anexo {
 		this.latitudeLongitude = latitudeLongitude;
 	}
 	
+	public Local() {
+		
+	}
+	
 	
 
 }
