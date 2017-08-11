@@ -15,5 +15,12 @@ public class DAOJPAUsuario extends DAOJPA<Usuario> {
 		// TODO Auto-generated method stub
 		return Usuario.class;
 	}
+	public Usuario retrieve(String login) {
+		Usuario objeto = null;
+		if (em != null) {
+			objeto = (Usuario) em.find(getDAOClass(),login);
+		}
+		return objeto;
+	}
 
 }

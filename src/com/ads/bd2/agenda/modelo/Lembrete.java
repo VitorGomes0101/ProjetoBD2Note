@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Lembrete {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long idlembrete;
 	
 	@Column(name = "data_cricao", nullable = false, insertable = true, updatable = true, unique = false)
@@ -26,7 +27,8 @@ public class Lembrete {
 	@OneToMany(mappedBy = "lembrete")
 	private Collection<Anexo> anexo;
 	
-	@ManyToMany (mappedBy = "lembrete")
+	@JoinTable(name = "lembrete_usuario", joinColumns = {@JoinColumn(name = "id_lembrete", referencedColumnName = "idlembrete")}, inverseJoinColumns = {@JoinColumn(name = "login_usuario", referencedColumnName = "login")})
+	@ManyToMany 
 	private Collection<Usuario> usuario;
 	
 	@OneToMany(mappedBy = "lembrete")
