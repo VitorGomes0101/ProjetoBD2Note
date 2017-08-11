@@ -1,7 +1,6 @@
 package com.ads.bd2.agenda.app;
 
 import javax.persistence.EntityManager;
-
 import com.ads.bd2.agenda.persistencia.DAOJPA;
 import com.ads.bd2.agenda.persistencia.DAOJPALembrete;
 
