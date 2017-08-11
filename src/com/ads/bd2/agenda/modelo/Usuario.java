@@ -25,7 +25,6 @@ public class Usuario {
 	@Column(name = "email", nullable = false, length = 255, insertable = true, updatable = true, unique = true)
 	private String email;
 
-	//@JoinTable(name = "lembrete_usuario", joinColumns = {@JoinColumn(name = "login_usuario", referencedColumnName = "login")}, inverseJoinColumns = {@JoinColumn(name = "id_lembrete", referencedColumnName = "idlembrete")})
 	@ManyToMany(mappedBy = "usuario")
 	private Collection<Lembrete> lembrete;
 

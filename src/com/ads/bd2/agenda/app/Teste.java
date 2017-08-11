@@ -12,7 +12,7 @@ public class Teste {
 		//comuns numa sessao de trabalho (operacoes numa mesma transacao).
 		//por isso abriremos e fecharemos a transacao do EntityManager (commit) fora dos DAOs
 				
-		EntityManager em = DAOJPA.createAndInitEntityManager(); //---> chamando o EntityManager		
+		/*EntityManager em = DAOJPA.createAndInitEntityManager(); //---> chamando o EntityManager		
 		em.getTransaction().begin();//---> abrindo a transacao
 		DAOJPA<LatitudeLongitude> daoLatLong = new DAOJPALatitudeLongitude(em); //---> criando um DAO para um objeto persistente especifico, com o mesmo EntityManager
 		
@@ -30,7 +30,8 @@ public class Teste {
 		
 		
 		em.getTransaction().commit();//---> fechando a transacao
-		daoLatLong.closeEntityManager();//---> fechando o EntityManager
+		daoLatLong.closeEntityManager();//---> fechando o EntityManager*/
+		
 
 	}
 
