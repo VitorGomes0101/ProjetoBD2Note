@@ -11,6 +11,7 @@ import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
 public class Teste {
 
 	public static void main(String[] args) {
+		long tempoInicial = System.nanoTime();
 		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
@@ -31,6 +32,7 @@ public class Teste {
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
 		daoUsuario.closeEntityManager();
+		System.out.println("O tempo da operação foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
 	}
 
 }
