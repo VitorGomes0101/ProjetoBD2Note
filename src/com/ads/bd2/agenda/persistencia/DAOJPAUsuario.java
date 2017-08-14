@@ -35,6 +35,7 @@ public class DAOJPAUsuario extends DAOJPA<Usuario> {
 	
 	public List<Usuario> retrieveUsuariosConhecidos(String idUsuario){
 		return em.createQuery("FROM " + getDAOClass().getName()).getResultList();
+		
 	}
 	
 	public Long contarUsuariosSemLembretes(){
