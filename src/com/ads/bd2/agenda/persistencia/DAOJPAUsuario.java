@@ -52,21 +52,34 @@ public class DAOJPAUsuario extends DAOJPA<Usuario> {
 	
 	public void delete(Usuario usuario){
 		try {
-            em.getTransaction().begin();
             usuario = retrieve(usuario.getLogin());
             em.remove(usuario);
-            em.getTransaction().commit();
 		} catch (Exception ex) {
             ex.printStackTrace();
             em.getTransaction().rollback();
-   }
+		}
 	}
 	
 	public void update(Usuario usuario){
 		try {
-            em.getTransaction().begin();
-            em.merge(usuario);
-            em.getTransaction().commit();
+			Usuario user = retrieve(usuario.getLogin());
+			
+			if(usuario.getNome() != null){
+				user.setNome(usuario.getNome());
+			}
+			
+			if(usuario.getEmail() != null){
+				user.setEmail(usuario.getEmail());
+			}
+			
+			if (usuario.getSenha() != null){
+				user.setSenha(usuario.getSenha());
+			}
+			
+			if (usuario.getDataNascimento() != null){
+				user.setDataNascimento(usuario.getDataNascimento());
+			}
+            em.merge(user);
 		} catch (Exception ex) {
             ex.printStackTrace();
             em.getTransaction().rollback();
