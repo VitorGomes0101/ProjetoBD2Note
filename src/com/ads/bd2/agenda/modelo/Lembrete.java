@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Lembrete {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idlembrete;
 	
 	@Column(name = "data_cricao", nullable = false, insertable = true, updatable = true, unique = false)

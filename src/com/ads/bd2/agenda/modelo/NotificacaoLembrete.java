@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 public class NotificacaoLembrete {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idNotificao;
 
 	@Column(name = "data_hora_lembrar", nullable = false, insertable = true, updatable = true, unique = false)
