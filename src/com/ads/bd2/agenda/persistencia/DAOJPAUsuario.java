@@ -19,27 +19,25 @@ public class DAOJPAUsuario extends DAOJPA<Usuario> {
 		return Usuario.class;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> retrieveUsuario(String login, String senha){
-		Usuario user = null;
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		if(em != null){
-			while(true){
-				user = em.find(getDAOClass(), login);
-				if(user.getSenha().equals(senha)){
-					usuarios.add(user);
-				}
-			}
-		}
+		List<Usuario> usuarios = em.createQuery("SELECT * FROM usuario WHERE login = " + login + " senha = " + senha).getResultList();
 		return usuarios;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> retrieveUsuariosConhecidos(String idUsuario){
-		return em.createQuery("FROM " + getDAOClass().getName()).getResultList();
+		List<Integer> idLembrete = em.createQuery("SELECT id_lembrete FROM lembrete_usuario WHERE login_usuario = " + idUsuario).getResultList();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		for (Integer i : idLembrete) {
+			usuarios.addAll(em.createQuery("SELECT u.* FROM usuario u, lembrete_usuario lu WHERE lu.id_lembrete = " + i).getResultList());
+		}
+		return usuarios;
 		
 	}
 	
-	public Long contarUsuariosSemLembretes(){
-		return null;
+	public int contarUsuariosSemLembretes(){
+		return em.createQuery("select count(*) from usuario where login not in (select login_usuario from lembrete_usuario)").getMaxResults();
 	}
 	
 	public Usuario retrieve(String login) {
