@@ -15,7 +15,7 @@ import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
 
 public class MainA {
 	
- private final static int quant = 100;  
+ private final static int quant = 10000;  
  
 	public static void main(String[] args) {
 		String c = create();
@@ -94,7 +94,14 @@ public class MainA {
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
-		
+		//MUDANDO TÍTULO DOS LEMBRETES
+		for(long i=0; i<quant; i++) {
+			Lembrete lembrete = new Lembrete();
+			lembrete.setIdLembrete(i+1);
+			lembrete.setTitulo("Titulo atualizado");
+			lembrete.setTexto("Texto atualizado");
+			daoLembrete.update(lembrete);			
+		}		
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
@@ -108,14 +115,13 @@ public class MainA {
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
-		List<Lembrete> lembretes = new ArrayList<Lembrete>();
-		
-		//BUSCANDO LEMBRETES
-			for(long i=0;i<quant;i++) {
-				Lembrete lembrete = new Lembrete();
-				lembrete.setIdLembrete(i+1);
-				daoLembrete.delete(lembrete);
-			}
+				
+		//DELETANDO LEMBRETES
+		for(long i=0;i<quant;i++) {
+			Lembrete lembrete = new Lembrete();
+			lembrete.setIdLembrete(i+1);
+			daoLembrete.delete(lembrete);
+		}
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
