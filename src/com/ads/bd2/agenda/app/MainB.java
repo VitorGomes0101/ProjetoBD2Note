@@ -17,10 +17,15 @@ import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
 
 public class MainB {
 	public static void main(String[] args) {
-		System.out.println(create());
-		System.out.println(retrieve());
-		System.out.println(update());
-		System.out.println(delete());
+		String c = create();
+		String r = retrieve();
+		String u = update();
+		String d = delete();
+		
+		System.out.println(c);
+		System.out.println(r);
+		System.out.println(u);
+		System.out.println(d);
 	}
 	
 	private static String create() {	
