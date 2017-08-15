@@ -5,13 +5,13 @@ import javax.persistence.Entity;
 @Entity
 public class URL extends Anexo {
 
-	private int url;
+	private String url;
 	
-	public int getUrl() {
+	public String getUrl() {
 		return url;
 	}
 	
-	public void setUrl(int url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 	

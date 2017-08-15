@@ -5,13 +5,13 @@ import javax.persistence.Entity;
 @Entity
 public class Imagem extends Anexo {
 
-	private int caminhoSistemaArquivos;
+	private String caminhoSistemaArquivos;
 
-	public int getCaminhoSistemaArquivos() {
+	public String getCaminhoSistemaArquivos() {
 		return caminhoSistemaArquivos;
 	}
 
-	public void setCaminhoSistemaArquivos(int caminhoSistemaArquivos) {
+	public void setCaminhoSistemaArquivos(String caminhoSistemaArquivos) {
 		this.caminhoSistemaArquivos = caminhoSistemaArquivos;
 	}
 	
