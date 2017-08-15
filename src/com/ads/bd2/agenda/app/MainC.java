@@ -19,18 +19,21 @@ import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
 import com.ads.bd2.agenda.persistencia.DAOJPAnexo;
 
 public class MainC {
-	private final static int quant = 33;  
+	private final static int quant = 3333;  
  
 	public static void main(String[] args) {
+		
+		//MODIFICAR O MAPEAMENTO (JOINED, TABLE PER CLASS E SINGLE TABLE)
+		
 		String c = create();
 		String r = retrieve();
-		//String u = update();
-		//String d = delete();
+		String u = update();
+		String d = delete();
 		
 		System.out.println(c);
 		System.out.println(r);
-		//System.out.println(u);
-		//System.out.println(d);
+		System.out.println(u);
+		System.out.println(d);
 	}
 	
 	private static String create() {	
@@ -140,10 +143,13 @@ public class MainC {
 		em.getTransaction().begin();
 		DAOJPAnexo daoAnexo = new DAOJPAnexo(em);
 		
-		for(int i=0; i<quant; i++) {	
-			
+		for(int i=0; i<(quant*3)+1; i++) {
+			Anexo anexo = new URL();
+			anexo.setIdanexo(i+1);
+			anexo.setDescricao("Nova descrição");
+			anexo.setPosicaoNoLembrete(5);
+			daoAnexo.update(anexo);			
 		}
-				
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
@@ -157,8 +163,11 @@ public class MainC {
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
-		
-		
+				
+		//DELETANDO LEMBRETE
+		Lembrete l = new Lembrete();
+		l.setIdLembrete(1);
+		daoLembrete.delete(l);
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();

@@ -18,7 +18,7 @@ import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
 
 public class MainB {
 	
-	private final static int quant = 100;
+	private final static int quant = 10000;
 	
 	public static void main(String[] args) {
 		String c = create();

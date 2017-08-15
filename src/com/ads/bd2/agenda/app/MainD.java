@@ -4,17 +4,20 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 
 import com.ads.bd2.agenda.modelo.Anexo;
+import com.ads.bd2.agenda.modelo.LatitudeLongitude;
 import com.ads.bd2.agenda.modelo.Lembrete;
-import com.ads.bd2.agenda.modelo.ModoNotificacao;
-import com.ads.bd2.agenda.modelo.NotificacaoLembrete;
+import com.ads.bd2.agenda.modelo.Local;
 import com.ads.bd2.agenda.modelo.Usuario;
 import com.ads.bd2.agenda.persistencia.DAOJPA;
+import com.ads.bd2.agenda.persistencia.DAOJPALatitudeLongitude;
 import com.ads.bd2.agenda.persistencia.DAOJPALembrete;
 import com.ads.bd2.agenda.persistencia.DAOJPAUsuario;
+import com.ads.bd2.agenda.persistencia.DAOJPAnexo;
 
 public class MainD {
 	
@@ -23,13 +26,13 @@ public class MainD {
 	public static void main(String[] args) {
 		String c = create();
 		String r = retrieve();
-		String u = update();
-		String d = delete();
+		//String u = update();
+		//String d = delete();
 		
 		System.out.println(c);
 		System.out.println(r);
-		System.out.println(u);
-		System.out.println(d);
+		//System.out.println(u);
+		//System.out.println(d);
 	}
 	
 	private static String create() {	
@@ -39,6 +42,8 @@ public class MainD {
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		DAOJPAUsuario daoUsuario= new DAOJPAUsuario(em);
+		DAOJPALatitudeLongitude daoLatitudeLongitude = new DAOJPALatitudeLongitude(em);
+		DAOJPAnexo daoAnexo = new DAOJPAnexo(em);
 		
 		//CRIANDO USUARIO E INSERINDO DENTRO DA TRANSA√á√ÉO (PERSISTENCIA)	
 		Usuario usuario = new Usuario();
@@ -47,43 +52,50 @@ public class MainD {
 		usuario.setSenha("123");
 		usuario.setEmail("jadson@gmail.com");
 		usuario.setDataNascimento(new Date(System.currentTimeMillis()));		
-		daoUsuario.create(usuario);
 				
-		//CRIANDO NOTIFICA«√O
-		NotificacaoLembrete nl1 = new NotificacaoLembrete();
-		nl1.setDataHoraLembrar(new Date(System.currentTimeMillis()));
-		nl1.setModo(ModoNotificacao.EMAIL);
-		nl1.setUsuario(usuario);		
-		List<NotificacaoLembrete> notificacaoLembrete = new ArrayList<NotificacaoLembrete>();
-		notificacaoLembrete.add(nl1);
-		
-		//CRIANDO ANEXOS
-		List<Anexo> anexos = new ArrayList<Anexo>();
-		for (int j = 0; j < quant; j++) {
-			Anexo anexo = new Anexo();
-			anexo.setDescricao("DecriÁ„o de numero" + j);
-			anexos.add(anexo);
-		}
-			
 		//BUSCANDO USUARIO, CRIANDO LEMBRETES E INSERINDO DENTRO DA TRANSA√á√ÉO (PERSISTENCIA)
-		Usuario usuarioLembrete = daoUsuario.retrieve(usuario.getLogin());
 		Collection<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(usuarioLembrete);
+		usuarios.add(usuario);
 		Lembrete lembrete = new Lembrete();
 		lembrete.setDataCriacao(new Date(System.currentTimeMillis()));
 		lembrete.setTitulo("Lembrete 1");
 		lembrete.setTexto("Texto escrito");
 		lembrete.setPosicaoEntreLembretes(1);		
 		lembrete.setUsuario(usuarios);
-		lembrete.setAnexo(anexos);
-		lembrete.setNotificacaoLembrete(notificacaoLembrete);
+
+		//CRIANDO ANEXOS
+		List<Anexo> anexos = new ArrayList<Anexo>();
+		for (int j = 0; j < quant; j++) {
+			
+			Local anexo = new Local();
+			LatitudeLongitude latitudeLongitude = new LatitudeLongitude();
+			
+			latitudeLongitude.setLatitude(new Random().nextDouble());
+			latitudeLongitude.setLongitude(new Random().nextDouble());
+			daoLatitudeLongitude.create(latitudeLongitude);
+			
+			anexo.setDescricao("DecriÁ„o de numero" + j);
+			anexo.setCep("58500-000");
+			anexo.setCidade("Monteiro");
+			anexo.setEstado("Paraiba");
+			anexo.setPais("Brasil");
+			anexo.setLatitudeLongitude(latitudeLongitude);
+			anexo.setPosicaoNoLembrete(j);
+			anexo.setLembrete(lembrete);
+			
+			daoAnexo.create(anexo);
+			anexos.add(anexo);
+		}
 		
+		lembrete.setAnexo(anexos);
 		daoLembrete.create(lembrete);
+		daoUsuario.create(usuario);
 		
 		//EFETUANDO TRANSA√á√ÉO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
-		daoLembrete.closeEntityManager();		
-		return ("O tempo da opera√ß√£o CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
+		daoUsuario.closeEntityManager();
+		daoLembrete.closeEntityManager();
+		return ("O tempo da operaÁ„o CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
 	}
 	
 	private static String retrieve() {
