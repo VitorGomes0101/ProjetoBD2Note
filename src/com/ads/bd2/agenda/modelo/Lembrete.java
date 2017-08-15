@@ -25,14 +25,14 @@ public class Lembrete {
 	@Column(name = "posicao_lembrete", nullable = false, insertable = true, updatable = true, unique = false)
 	private int posicaoEntreLembretes;
 	
-	@OneToMany(mappedBy = "lembrete")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "lembrete")
 	private Collection<Anexo> anexo;
 	
 	@JoinTable(name = "lembrete_usuario", joinColumns = {@JoinColumn(name = "id_lembrete", referencedColumnName = "idlembrete")}, inverseJoinColumns = {@JoinColumn(name = "login_usuario", referencedColumnName = "login")})
 	@ManyToMany 
 	private Collection<Usuario> usuario;
 	
-	@OneToMany(mappedBy = "lembrete")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "lembrete")
 	private Collection<NotificacaoLembrete> notificacaoLembrete;
 
 	
