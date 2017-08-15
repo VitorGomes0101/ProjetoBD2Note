@@ -22,6 +22,9 @@ public class MainC {
 	private final static int quant = 33;  
  
 	public static void main(String[] args) {
+		
+		//MODIFICAR O MAPEAMENTO (JOINED, TABLE PER CLASS E SINGLE TABLE)
+		
 		String c = create();
 		String r = retrieve();
 		String u = update();
