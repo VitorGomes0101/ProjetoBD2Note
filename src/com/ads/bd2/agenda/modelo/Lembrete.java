@@ -32,7 +32,7 @@ public class Lembrete {
 	@ManyToMany 
 	private Collection<Usuario> usuario;
 	
-	@OneToMany(mappedBy = "lembrete")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "lembrete")
 	private Collection<NotificacaoLembrete> notificacaoLembrete;
 
 	

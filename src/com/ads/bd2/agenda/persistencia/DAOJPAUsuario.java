@@ -50,8 +50,12 @@ public class DAOJPAUsuario extends DAOJPA<Usuario> {
 	
 	public void delete(Usuario usuario){
 		try {
-            usuario = retrieve(usuario.getLogin());
-            em.remove(usuario);
+			if(usuario!=null){
+			    usuario = retrieve(usuario.getLogin());
+			    if(usuario!=null && em!=null){
+					em.remove(usuario);
+			    }
+			}
 		} catch (Exception ex) {
             ex.printStackTrace();
             em.getTransaction().rollback();
