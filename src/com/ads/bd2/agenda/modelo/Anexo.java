@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name = "anexo", schema="public")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO_ANEXO")
-public class Anexo {
+public abstract class Anexo {
 	//@TableGenerator(name = "VEHICLE_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idanexo;
 	
 	@Column(name = "descricao", nullable = false, length = 255, insertable = true, updatable = true, unique = false)

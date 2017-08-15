@@ -35,8 +35,7 @@ public class MainB {
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		DAOJPAUsuario daoUsuario= new DAOJPAUsuario(em);
-		DAOJPANotificacaoLembrete daoNotificacao= new DAOJPANotificacaoLembrete(em);
-		
+		DAOJPANotificacaoLembrete daoNotificacao= new DAOJPANotificacaoLembrete(em);		
 		
 		//CRIANDO 2 USUARIOS E INSERINDO DENTRO DA TRANSAÇÃO (PERSISTENCIA)	
 		Usuario usuario = new Usuario();
