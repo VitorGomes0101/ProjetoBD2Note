@@ -103,7 +103,6 @@ public class MainD {
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
 		Lembrete lembrete = daoLembrete.retrieve(1l);
-		JOptionPane.showConfirmDialog(null, lembrete.getAnexo().size());
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
