@@ -1,9 +1,11 @@
 package com.ads.bd2.agenda.modelo;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 @Entity
 public class Local extends Anexo {
+
 
 	private String cep;
 
@@ -47,6 +49,7 @@ public class Local extends Anexo {
 		this.pais = pais;
 	}
 
+	//@Embedded
 	public LatitudeLongitude getLatitudeLongitude() {
 		return latitudeLongitude;
 	}

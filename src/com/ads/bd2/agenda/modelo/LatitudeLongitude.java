@@ -1,5 +1,6 @@
 package com.ads.bd2.agenda.modelo;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "latitudelongitude", schema="public")
+//@Embeddable
 public class LatitudeLongitude {
 
 	@Id

@@ -26,10 +26,16 @@ public class MainD {
 	private final static int quant = 10000;
 
 	public static void main(String[] args) {
-		System.out.println(create());
-		System.out.println(retrieve());
-		System.out.println(update());
-		System.out.println(delete());
+		//Para testar Embedded comentar linha 74 e descomentar anotações na classe local e latitude e longitude
+		String c = create();
+		String r = retrieve();
+		String u = update();
+		String d = delete();
+		
+		System.out.println(c);
+		System.out.println(r);
+		System.out.println(u);
+		System.out.println(d);
 	}
 	
 	private static String create() {	
@@ -69,6 +75,7 @@ public class MainD {
 			
 			latitudeLongitude.setLatitude(new Random().nextDouble());
 			latitudeLongitude.setLongitude(new Random().nextDouble());
+			//comentar linha abaixo para o modo Embedded
 			daoLatitudeLongitude.create(latitudeLongitude);
 			
 			anexo.setDescricao("Decrição de numero" + j);
