@@ -18,15 +18,19 @@ public class MainA {
  private final static int quant = 10000;  
  
 	public static void main(String[] args) {
-		System.out.println(create());
-		System.out.println(retrieve());
-		System.out.println(update());
-		System.out.println(delete());
+		String c = create();
+		String r = retrieve();
+		String u = update();
+		String d = delete();
+		
+		System.out.println(c);
+		System.out.println(r);
+		System.out.println(u);
+		System.out.println(d);
 	}
 	
-	private static String create() {	
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+	private static String create() {			
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO E LEMBRETE
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
@@ -38,23 +42,22 @@ public class MainA {
 		usuario.setNome("Jadson");
 		usuario.setSenha("123");
 		usuario.setEmail("jadson@gmail.com");
-		usuario.setDataNascimento(new Date(System.currentTimeMillis()));		
+		usuario.setDataNascimento(new Date(System.currentTimeMillis()));
+		long tempoInicial = System.nanoTime();
 		daoUsuario.create(usuario);
-		//em.getTransaction().commit();
-		
-		//BUSCANDO USUARIO, CRIANDO LEMBRETES E INSERINDO DENTRO DA TRANSAÇÃO (PERSISTENCIA)
-		Usuario usuarioLembrete = daoUsuario.retrieve(usuario.getLogin());
 		Collection<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(usuarioLembrete);
+		usuarios.add(usuario);
+				
+		//CRIANDO LEMBRETES E INSERINDO DENTRO DA TRANSAÇÃO (PERSISTENCIA)		
 		for(int i=0; i<quant; i++) {
-		Lembrete lembrete = new Lembrete();
-		lembrete.setDataCriacao(new Date(System.currentTimeMillis()));
-		lembrete.setTitulo("Lembrete"+i+1);
-		lembrete.setTexto("Esse é o texto de número "+i+1);
-		lembrete.setPosicaoEntreLembretes(1);		
-		lembrete.setUsuario(usuarios);
-		
-		daoLembrete.create(lembrete);
+			Lembrete lembrete = new Lembrete();
+			lembrete.setDataCriacao(new Date(System.currentTimeMillis()));
+			lembrete.setTitulo("Lembrete"+i+1);
+			lembrete.setTexto("Esse é o texto de número "+i+1);
+			lembrete.setPosicaoEntreLembretes(1);		
+			lembrete.setUsuario(usuarios);
+			
+			daoLembrete.create(lembrete);
 		}
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
@@ -64,14 +67,14 @@ public class MainA {
 		return ("O tempo da operação CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
 	}
 	
-	private static String retrieve() {
-		long tempoInicial = System.nanoTime();
+	private static String retrieve() {		
 		//CRIANDO ENTITY MANAGER E INSTANCIANDO DAO DO LEMBRETE
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		List<Lembrete> lembretes = new ArrayList<Lembrete>();
 		
 		//BUSCANDO LEMBRETES
+		long tempoInicial = System.nanoTime();
 		for(long i=0;i<quant;i++) {
 			Lembrete lembrete = daoLembrete.retrieve(i+1);
 			lembretes.add(lembrete);
@@ -82,14 +85,14 @@ public class MainA {
 		return ("O tempo da operação RETRIEVE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
 	}
 	
-	private static String update() {
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+	private static String update() {		
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO LEMBRETE
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
 		//MUDANDO TÍTULO DOS LEMBRETES
+		long tempoInicial = System.nanoTime();
 		for(long i=0; i<quant; i++) {
 			Lembrete lembrete = new Lembrete();
 			lembrete.setIdLembrete(i+1);
@@ -105,13 +108,13 @@ public class MainA {
 	}
 	
 	private static String delete() {
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO LEMBRETE
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 				
 		//DELETANDO LEMBRETES
+		long tempoInicial = System.nanoTime();
 		for(long i=0;i<quant;i++) {
 			Lembrete lembrete = new Lembrete();
 			lembrete.setIdLembrete(i+1);

@@ -49,7 +49,7 @@ public class Local extends Anexo {
 		this.pais = pais;
 	}
 
-	//@Embedded
+	@Embedded
 	public LatitudeLongitude getLatitudeLongitude() {
 		return latitudeLongitude;
 	}

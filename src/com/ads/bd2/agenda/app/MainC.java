@@ -23,14 +23,18 @@ public class MainC {
  
 	public static void main(String[] args) {		
 		//MODIFICAR O MAPEAMENTO (JOINED, TABLE PER CLASS E SINGLE TABLE)
-		System.out.println(create());
-		System.out.println(retrieve());
-		System.out.println(update());
-		System.out.println(delete());
+		String c = create();
+		String r = retrieve();
+		String u = update();
+		String d = delete();
+		
+		System.out.println(c);
+		System.out.println(r);
+		System.out.println(u);
+		System.out.println(d);
 	}
 	
-	private static String create() {	
-		long tempoInicial = System.nanoTime();
+	private static String create() {			
 		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAOs
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
@@ -60,6 +64,7 @@ public class MainC {
 		l.setUsuario(usuarios);
 		
 		//CRIANDO LOCAIS
+		long tempoInicial = System.nanoTime();
 		for(int i=0;i<quant+1;i++) {	
 			LatitudeLongitude lagitude = new LatitudeLongitude();
 			lagitude.setLatitude(13.13*quant*(i+1));
@@ -115,27 +120,24 @@ public class MainC {
 	}
 	
 	private static String retrieve() {
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO LEMBRETE
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
+		long tempoInicial = System.nanoTime();
 		Lembrete lembrete = daoLembrete.retrieve(1l);
-		//System.out.println(lembrete.getAnexo().size());
 		
-		//FECHANDO ENTITY MANAGER
-		//em.getTransaction().commit();
 		daoLembrete.closeEntityManager();		
-		return ("O tempo da operação RETRIEVE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
+		return ("O tempo da operação RETRIEVE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos" +lembrete.getAnexo().size());
 	}
 	
 	private static String update() {
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO ANEXO
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPAnexo daoAnexo = new DAOJPAnexo(em);
 		
+		long tempoInicial = System.nanoTime();
 		for(int i=0; i<(quant*3)+1; i++) {
 			Anexo anexo = new URL();
 			anexo.setIdanexo(i+1);
@@ -151,7 +153,7 @@ public class MainC {
 	}
 	
 	private static String delete() {
-		long tempoInicial = System.nanoTime();
+		
 		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
@@ -160,6 +162,7 @@ public class MainC {
 		//DELETANDO LEMBRETE
 		Lembrete l = new Lembrete();
 		l.setIdLembrete(1);
+		long tempoInicial = System.nanoTime();
 		daoLembrete.delete(l);
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER

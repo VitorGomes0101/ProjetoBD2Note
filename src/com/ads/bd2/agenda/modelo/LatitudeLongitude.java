@@ -7,26 +7,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "latitudelongitude", schema="public")
-//@Embeddable
+//@Entity
+//@Table(name = "latitudelongitude", schema="public")
+@Embeddable
 public class LatitudeLongitude {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	//@Id
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//private Long id;
 
 	private double latitude;
 
 	private double longitude;
 	
-	public Long getId() {
+	/*public Long getId() {
 		return id;
 	}
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
+	}*/
 
 	public double getLatitude() {
 		return latitude;

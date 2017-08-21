@@ -26,7 +26,7 @@ public class MainD {
 	private final static int quant = 10000;
 
 	public static void main(String[] args) {
-		//Para testar Embedded comentar linha 74 e descomentar anota��es na classe local e latitude e longitude
+		//Para testar Embedded comentar linha 74 e descomentar anota��es na classe local e latitude e longitude
 		String c = create();
 		String r = retrieve();
 		String u = update();
@@ -38,9 +38,8 @@ public class MainD {
 		System.out.println(d);
 	}
 	
-	private static String create() {	
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+	private static String create() {			
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO, LEMBRETE, LAGITUDE E ANEXO
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
@@ -67,6 +66,7 @@ public class MainD {
 		lembrete.setUsuario(usuarios);
 
 		//CRIANDO ANEXOS
+		long tempoInicial = System.nanoTime();
 		List<Anexo> anexos = new ArrayList<Anexo>();
 		for (int j = 0; j < quant; j++) {
 			
@@ -76,9 +76,9 @@ public class MainD {
 			latitudeLongitude.setLatitude(new Random().nextDouble());
 			latitudeLongitude.setLongitude(new Random().nextDouble());
 			//comentar linha abaixo para o modo Embedded
-			daoLatitudeLongitude.create(latitudeLongitude);
+			//daoLatitudeLongitude.create(latitudeLongitude);
 			
-			anexo.setDescricao("Decri��o de numero" + j);
+			anexo.setDescricao("Decri��o de numero" + j);
 			anexo.setCep("58500-000");
 			anexo.setCidade("Monteiro");
 			anexo.setEstado("Paraiba");
@@ -99,36 +99,36 @@ public class MainD {
 		em.getTransaction().commit();
 		daoUsuario.closeEntityManager();
 		daoLembrete.closeEntityManager();
-		return ("O tempo da opera��o CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
+		return ("O tempo da operação CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
 	}
 	
-	private static String retrieve() {
-		long tempoInicial = System.nanoTime();
+	private static String retrieve() {		
 		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
+		long tempoInicial = System.nanoTime();
 		Lembrete lembrete = daoLembrete.retrieve(1l);
 		
 		//EFETUANDO TRANSAÇÃO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
 		daoLembrete.closeEntityManager();		
-		return ("O tempo da operação RETRIEVE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
+		return ("O tempo da operação RETRIEVE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos "+ lembrete.getAnexo().size());
 	}
 	
 	private static String update() {
-		long tempoInicial = System.nanoTime();
-		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
+		
+		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO LEMBRETE
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		DAOJPAnexo daoAnexo = new DAOJPAnexo(em);
-		
+		long tempoInicial = System.nanoTime();
 		for(int i=0; i<(quant*3)+1; i++) {
 			Anexo anexo = new URL();
 			anexo.setIdanexo(i+1);
-			anexo.setDescricao("Nova descri��o");
+			anexo.setDescricao("Nova descri��o");
 			anexo.setPosicaoNoLembrete(5);
 			daoAnexo.update(anexo);			
 		}
@@ -141,13 +141,14 @@ public class MainD {
 	}
 	
 	private static String delete() {
-		long tempoInicial = System.nanoTime();
+		
 		//CRIANDO ENTITY MANAGER, INICIANDO TRANSAÇÃO E INSTANCIANDO DAO DO USUARIO
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
 		//DELETANDO LEMBRETE
+		long tempoInicial = System.nanoTime();
 		Lembrete l = new Lembrete();
 		l.setIdLembrete(1);
 		daoLembrete.delete(l);

@@ -30,7 +30,7 @@
 			<property name="eclipselink.logging.session" value="true" />
 			<property name="eclipselink.logging.exceptions" value="true" />
 			<property name="eclipselink.logging.level" value="FINE"/>
-			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 		</properties>
 	</persistence-unit>
 </persistence>
