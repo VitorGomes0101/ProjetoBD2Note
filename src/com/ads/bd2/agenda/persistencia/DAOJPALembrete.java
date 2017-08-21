@@ -88,7 +88,19 @@ public class DAOJPALembrete extends DAOJPA<Lembrete> {
 	
 	//retorna todos os lembretes de idUsuario que possuem notificações a sarem feitas num dado intervalo de tempo
 	public List<Lembrete> retrieveLembretes(String login, Date dataHoraLembrarInicial, Date dataHoraLembraFinal){
-		return null;
+		//CABEÇALHO
+		String jpql = "SELECT lembrete FROM Lembrete lembrete " +
+				"INNER JOIN lembrete.usuario u INNER JOIN lembrete.notificacaoLembrete n "+
+				"WHERE u.login = :login AND n.dataHoraLembrar BETWEEN :dataHoraLembrarInicial AND :dataHoraLembraFinal";
+		
+		//CRIANDO QUERY
+		TypedQuery<Lembrete> consulta = em.createQuery(jpql, Lembrete.class);
+		consulta.setParameter("login", login);
+		consulta.setParameter("dataHoraLembrarInicial", dataHoraLembrarInicial);
+		consulta.setParameter("dataHoraLembraFinal", dataHoraLembraFinal);
+		
+		//OBTENDO RESULTADOS
+		return consulta.getResultList();
 	}
 	
 	
