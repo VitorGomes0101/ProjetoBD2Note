@@ -22,9 +22,9 @@ public class MainB {
 	
 	public static void main(String[] args) {
 		System.out.println(create());
-		//System.out.println(retrieve());
-		//System.out.println(update());
-		//System.out.println(delete());
+		System.out.println(retrieve());
+		System.out.println(update());
+		System.out.println(delete());
 	}
 	
 	private static String create() {	

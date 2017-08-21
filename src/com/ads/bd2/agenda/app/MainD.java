@@ -21,18 +21,13 @@ import com.ads.bd2.agenda.persistencia.DAOJPAnexo;
 
 public class MainD {
 	
-	private final static int quant = 100;
+	private final static int quant = 10000;
 
 	public static void main(String[] args) {
-		String c = create();
-		String r = retrieve();
-		//String u = update();
-		//String d = delete();
-		
-		System.out.println(c);
-		System.out.println(r);
-		//System.out.println(u);
-		//System.out.println(d);
+		System.out.println(create());
+		System.out.println(retrieve());
+		System.out.println(update());
+		System.out.println(delete());
 	}
 	
 	private static String create() {	
@@ -74,7 +69,7 @@ public class MainD {
 			latitudeLongitude.setLongitude(new Random().nextDouble());
 			daoLatitudeLongitude.create(latitudeLongitude);
 			
-			anexo.setDescricao("Decrição de numero" + j);
+			anexo.setDescricao("Decriï¿½ï¿½o de numero" + j);
 			anexo.setCep("58500-000");
 			anexo.setCidade("Monteiro");
 			anexo.setEstado("Paraiba");
@@ -95,7 +90,7 @@ public class MainD {
 		em.getTransaction().commit();
 		daoUsuario.closeEntityManager();
 		daoLembrete.closeEntityManager();
-		return ("O tempo da operação CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
+		return ("O tempo da operaï¿½ï¿½o CREATE foi: "+ (System.nanoTime() - tempoInicial)+" nanosegundos");
 	}
 	
 	private static String retrieve() {
