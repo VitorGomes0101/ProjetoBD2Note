@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 import com.ads.bd2.agenda.modelo.Anexo;
 import com.ads.bd2.agenda.modelo.LatitudeLongitude;
 import com.ads.bd2.agenda.modelo.Lembrete;
 import com.ads.bd2.agenda.modelo.Local;
+import com.ads.bd2.agenda.modelo.URL;
 import com.ads.bd2.agenda.modelo.Usuario;
 import com.ads.bd2.agenda.persistencia.DAOJPA;
 import com.ads.bd2.agenda.persistencia.DAOJPALatitudeLongitude;
@@ -69,7 +71,7 @@ public class MainD {
 			latitudeLongitude.setLongitude(new Random().nextDouble());
 			daoLatitudeLongitude.create(latitudeLongitude);
 			
-			anexo.setDescricao("Decriï¿½ï¿½o de numero" + j);
+			anexo.setDescricao("Decrição de numero" + j);
 			anexo.setCep("58500-000");
 			anexo.setCidade("Monteiro");
 			anexo.setEstado("Paraiba");
@@ -100,7 +102,8 @@ public class MainD {
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
-		
+		Lembrete lembrete = daoLembrete.retrieve(1l);
+		JOptionPane.showConfirmDialog(null, lembrete.getAnexo().size());
 		
 		//EFETUANDO TRANSAÃ‡ÃƒO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
@@ -114,7 +117,15 @@ public class MainD {
 		EntityManager em = DAOJPA.createAndInitEntityManager();
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
+		DAOJPAnexo daoAnexo = new DAOJPAnexo(em);
 		
+		for(int i=0; i<(quant*3)+1; i++) {
+			Anexo anexo = new URL();
+			anexo.setIdanexo(i+1);
+			anexo.setDescricao("Nova descrição");
+			anexo.setPosicaoNoLembrete(5);
+			daoAnexo.update(anexo);			
+		}
 		
 		
 		//EFETUANDO TRANSAÃ‡ÃƒO E FECHANDO ENTITY MANAGER
@@ -130,7 +141,10 @@ public class MainD {
 		em.getTransaction().begin();
 		DAOJPALembrete daoLembrete= new DAOJPALembrete(em);
 		
-		
+		//DELETANDO LEMBRETE
+		Lembrete l = new Lembrete();
+		l.setIdLembrete(1);
+		daoLembrete.delete(l);
 		
 		//EFETUANDO TRANSAÃ‡ÃƒO E FECHANDO ENTITY MANAGER
 		em.getTransaction().commit();
