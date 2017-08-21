@@ -21,15 +21,10 @@ public class MainB {
 	private final static int quant = 10000;
 	
 	public static void main(String[] args) {
-		String c = create();
-		String r = retrieve();
-		String u = update();
-		String d = delete();
-		
-		System.out.println(c);
-		System.out.println(r);
-		System.out.println(u);
-		System.out.println(d);
+		System.out.println(create());
+		//System.out.println(retrieve());
+		//System.out.println(update());
+		//System.out.println(delete());
 	}
 	
 	private static String create() {	

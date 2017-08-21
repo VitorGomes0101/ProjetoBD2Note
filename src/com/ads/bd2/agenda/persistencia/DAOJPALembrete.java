@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.ads.bd2.agenda.modelo.Lembrete;
 import com.ads.bd2.agenda.modelo.Usuario;
@@ -51,33 +52,46 @@ public class DAOJPALembrete extends DAOJPA<Lembrete> {
 	}
 
 	//retorna todos os lembretes compartilhados entre todos os usuariosCompartilhando
-	public List<Lembrete> retrieveLembretes(List<Usuario> usuariosCompartilhando){
-		List<Lembrete> lembretes = new ArrayList<Lembrete>();
+	public List<Lembrete> retrieveLembretes(ArrayList<Usuario> usuarios){
+		int size = usuarios.size();
 		
-		String q = "";
-		if(usuariosCompartilhando.size()>0) {
-			q ="SELECT id_lembrete FROM lembrete_usuario WHERE login_usuario LIKE '"+usuariosCompartilhando.get(0).getLogin()+"' ";
-		}
-		if(usuariosCompartilhando.size()>1) {
-			for(int i=1;i<usuariosCompartilhando.size();i++) {
-				q += "INTERSECT SELECT id_lembrete FROM lembrete_usuario WHERE login_usuario LIKE '"+usuariosCompartilhando.get(i).getLogin()+"' ";
-			}
-		}
-		q+=";";
+		//CABEÇALHO
+		String jpql = "SELECT lembrete FROM Lembrete lembrete ";
 		
-		Query query = em.createNativeQuery(q);
-		List<Long> idlembretes = query.getResultList();
-		for(Long i: idlembretes) {
-			Lembrete lembrete = retrieve(i);
-			lembretes.add(lembrete);
+		//INNER JOINS
+		for(int i = 0; i<size; i++) {
+			jpql+= "INNER JOIN lembrete.usuario u"+i+" ";
 		}
 		
-			return lembretes;
+		//WHERE
+		//COMEÇO
+		jpql+= "WHERE (u0 = :usuario0 ";
+		if(size>1) {
+			for(int i = 1; i<size; i++) {
+				jpql+="AND u"+i+" = :usuario"+i+" "; 
+			}	
+		}
+		//FIM
+		jpql+=")";
+		
+		//CRIANDO QUERY
+		TypedQuery<Lembrete> consulta = em.createQuery(jpql, Lembrete.class);
+		
+		//SETANDO PARAMENTROS
+		for(int i = 0; i<size; i++) {
+			consulta.setParameter("usuario"+i, usuarios.get(i));	
+		}
+		
+		//OBTENDO RESULTADOS
+		return consulta.getResultList();
 	}
 	
 	//retorna todos os lembretes de idUsuario que possuem notificações a sarem feitas num dado intervalo de tempo
-	public List<Lembrete> retrieveLembretes(Long idUsuario, Date dataHoraLembrarInicial, Date dataHoraLembraFinal){
+	public List<Lembrete> retrieveLembretes(String login, Date dataHoraLembrarInicial, Date dataHoraLembraFinal){
 		return null;
 	}
+	
+	
+	
 	
 }
